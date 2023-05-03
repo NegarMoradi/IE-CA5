@@ -1,15 +1,16 @@
-// import { persistReducer } from 'redux-persist';
-// import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 import UserReducer from './user';
 import { combineReducers } from '@reduxjs/toolkit';
+import TokenReducer from './user/token';
 
-// const PersistConfig = (reducerName) => ({
-//     key: reducerName,
-//     storage,
-// });
+const PersistConfig = (reducerName) => ({
+    key: reducerName,
+    storage,
+});
 
 export const RootReducer = combineReducers({
-    // [REDUCER_NAMES.DEVICE]: persistReducer(PersistConfig(REDUCER_NAMES.DEVICE), DeviceReducer),
+    token: persistReducer(PersistConfig('token'), TokenReducer),
     user: UserReducer,
 });

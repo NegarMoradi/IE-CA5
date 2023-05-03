@@ -15,6 +15,7 @@ export const userSlice = createSlice({
         setUserInfo: (state, action) => {
             state.name = action?.payload?.name;
             state.id = action?.payload?.id;
+            state.access_token = action?.payload?.access_token;
         },
         clear: (state) => {
             state = InitialState;
@@ -25,4 +26,5 @@ export const userSlice = createSlice({
 
 export const { setUserInfo, clear } =
     userSlice.actions;
+    
 export default userSlice.reducer;
