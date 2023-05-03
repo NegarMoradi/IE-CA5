@@ -1,8 +1,11 @@
 import React from 'react';
+import './styles.css';
 
 const Footer = () => {
     return (
-        <div>footer</div>
+        <footer>
+            <p class="text-center">2023 @UT</p>
+        </footer>
     )
 }
 
