@@ -3,20 +3,32 @@ import HomeHeader from './components/Header';
 import HomeSetting from './components/Setting';
 import './home.css';
 import Product from './components/Product';
-import { commoditiesActions } from '../../action';
-import React, { useEffect, useDispatch } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { userSelectors } from '../../store/user/selector';
+import UseApi from '../../hooks/api';
 
 const Home = () => {
 
     const user = useSelector(userSelectors.user)
     const token = useSelector(userSelectors.token)
-    let { error, loading, commodities } = useSelector(state => state.getCommoditiesList)
-    const dispatch = useDispatch()
-  
+    const [commodities, setCommodities] = useState([]);
+    const { apiCall } = UseApi();
+    const onSuccess = (res) => {
+        setCommodities(res.data.data);
+    }
+
+    const getCommoditiesApiCall = () => {
+        const query = {
+            "email": "john@mail.com",
+            "password": "changeme"
+        }
+
+        apiCall({ url: "http://localhost:5432/api/commodities", query, method: 'get', sucessCallback: onSuccess })
+    }
+
     useEffect(() => {
-      dispatch(commoditiesActions.getCommoditiesList())
+        getCommoditiesApiCall();
     }, [])
 
     useEffect(() => {
@@ -27,23 +39,19 @@ const Home = () => {
         console.log(token);
     }, [token])
     return (
+
         <>
-        { error && <div>{ error }</div> }
-        { loading && <div className="loading">Loading...</div> }
-        { commodities && <>
             <HomeHeader/>
             <div class="px-5 pt-5 home">
                 <HomeSetting/>
                 <div className='items'>
                     <div className='row'>
                         {commodities?.map((product, index) => {
-                            <Product key={index} product={product}/>
+                            return <Product key={index} product={product}/>
                         })}
                     </div>
                 </div>
             </div>
-            </>
-        }
         </>
     )
 }

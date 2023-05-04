@@ -6,8 +6,7 @@ const initialState = {
     error: false
 }
 
-
-export function getCommoditiesList(state = initialState, action){
+const getCommoditiesList = (state = initialState, action) => {
     
     switch (action.type) {
         case commoditiesConstants.GET_DETAILS_LIST_REQUEST:
@@ -35,3 +34,5 @@ export function getCommoditiesList(state = initialState, action){
             return state;
     }
 }
+
+export default getCommoditiesList;
