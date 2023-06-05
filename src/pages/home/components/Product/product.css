@@ -10,6 +10,11 @@
     background-color:#F7F0E9;
 }
 
+.item img {
+    height: 15rem;
+    max-width: 100%;
+}
+
 .item-title {
     color: #593C1C;
     font-weight: 600;
